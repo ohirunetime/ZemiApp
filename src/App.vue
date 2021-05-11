@@ -4,22 +4,22 @@
   <div v-show="loading" class="loader">Now loading...</div>
   <div v-show="!loading" class="itemContainer">
 
-    <ul>
-      <li v-for="(pref, index) in pref_list" :key='index'>
-        {{ pref['@code'] }}
-        {{ pref['@name'] }}
-      </li>
-    </ul>
+    <div v-for="(pref, index) in pref_list" :key='index'>
+      <h2>{{ pref['@name'] }}</h2>
+
+      <div v-for="(data, index) in data_list" :key='index'>
 
 
-    <ul>
-      <li v-for="(data, index) in data_list" :key='index'>
-        {{ data}}
-      </li>
-    </ul>
+        <div v-if="data['@area'] === pref['@code']">
+          <p>{{data['@time'].slice(0,4)}}年 : {{data['$']}} {{data['@unit']}}</p>
+        </div>
 
+        <!-- <div v-if="data['@area'] === pref['@code']">
 
+        </div> -->
 
+      </div>
+    </div>
   </div>
 
 
@@ -41,6 +41,7 @@ export default {
     return {
       pref_list: null,
       data_list: null,
+      cat_list:null,
       loading: true,
       title: null
     }
@@ -51,7 +52,8 @@ export default {
     axios.get(url)
       .then(response => {
         this.pref_list = response.data.GET_STATS_DATA.STATISTICAL_DATA.CLASS_INF.CLASS_OBJ[3].CLASS;
-        this.data_list = response.data.GET_STATS_DATA.STATISTICAL_DATA.DATA_INF.VALUE
+        this.data_list = response.data.GET_STATS_DATA.STATISTICAL_DATA.DATA_INF.VALUE;
+        this.cat_list = response.data.GET_STATS_DATA.STATISTICAL_DATA.CLASS_INF.CLASS_OBJ.CLASS;
 
 
         console.log(response.data.GET_STATS_DATA.STATISTICAL_DATA.DATA_INF.VALUE);
