@@ -1,6 +1,9 @@
 <template>
 <div id="app">
   <h1>卒業制作</h1>
+
+  <h3>情報取得元:<a href="https://www.e-stat.go.jp/dbview?sid=0003001298">https://www.e-stat.go.jp/dbview?sid=0003001298</a></h3> <hr>
+
   <div v-show="loading" class="loader">Now loading...</div>
   <div v-show="!loading" class="itemContainer">
 
